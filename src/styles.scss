@@ -1,0 +1,64 @@
+@use "bootstrap/scss/bootstrap" as *;
+@use "remixicon/fonts/remixicon.css";
+@use "styles/tokens";
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--fs-base);
+  color: var(--c-text);
+  background: var(--c-bg);
+}
+
+h1, h2, h3, h4 { color: var(--c-text); font-weight: 600; }
+
+a { color: var(--c-primary); }
+
+:focus-visible {
+  outline: 2px solid var(--c-primary);
+  outline-offset: 2px;
+}
+
+// Buttons: Bootstrap base, our tokens on top.
+.btn { border-radius: var(--radius-sm); font-size: var(--fs-base); }
+.btn-primary {
+  background: var(--c-primary);
+  border-color: var(--c-primary);
+  &:hover, &:focus { background: var(--c-primary-dark); border-color: var(--c-primary-dark); }
+}
+.btn-outline-secondary { border-color: var(--c-border); color: var(--c-text); }
+.btn-danger { background: var(--c-danger); border-color: var(--c-danger); }
+
+.card-surface {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+
+.badge-status {
+  display: inline-block;
+  padding: 2px var(--sp-2);
+  border-radius: 999px;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  &.is-active { background: var(--c-success-light); color: var(--c-success); }
+  &.is-inactive { background: var(--c-border); color: var(--c-text-muted); }
+}
+
+.form-card {
+  padding: var(--sp-5);
+  max-width: 880px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--sp-2);
+  margin-top: var(--sp-4);
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--c-border);
+}

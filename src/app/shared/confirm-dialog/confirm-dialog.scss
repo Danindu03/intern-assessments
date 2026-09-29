@@ -1,0 +1,26 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(16, 24, 40, 0.45);
+  z-index: 1040;
+}
+
+.dialog {
+  position: fixed;
+  z-index: 1050;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(420px, calc(100vw - var(--sp-5)));
+  padding: var(--sp-5);
+  box-shadow: var(--shadow-lg);
+
+  &__title { font-size: var(--fs-lg); margin: 0 0 var(--sp-2); }
+  &__message { color: var(--c-text-muted); margin: 0 0 var(--sp-5); }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--sp-2);
+  }
+}

@@ -1,0 +1,28 @@
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+  margin-bottom: var(--sp-4);
+
+  &__search {
+    position: relative;
+    flex: 1 1 260px;
+
+    i {
+      position: absolute;
+      left: var(--sp-3);
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--c-text-muted);
+    }
+
+    .form-control { padding-left: var(--sp-6); }
+  }
+
+  &__select { flex: 0 1 180px; }
+}
+
+@media (max-width: 576px) {
+  .filters__select { flex: 1 1 100%; }
+}

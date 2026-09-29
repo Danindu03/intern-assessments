@@ -1,0 +1,6 @@
+<div class="empty">
+  <i class="empty__icon" [class]="icon()"></i>
+  <h3 class="empty__title">{{ title() }}</h3>
+  @if (message()) { <p class="empty__message">{{ message() }}</p> }
+  <ng-content />
+</div>

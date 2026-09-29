@@ -1,0 +1,63 @@
+<div class="shell" [class.shell--collapsed]="collapsed()" [class.shell--mobile-open]="mobileOpen()">
+  <aside class="sidebar">
+    <div class="sidebar__brand">
+      <i class="ri-ship-2-fill sidebar__logo"></i>
+      <span class="sidebar__brand-text">Intern Assessments</span>
+    </div>
+
+    <nav class="sidebar__nav">
+      @for (item of navItems; track item.route) {
+        <a
+          class="nav-item"
+          [routerLink]="item.route"
+          routerLinkActive="nav-item--active"
+          [title]="item.label"
+          (click)="closeMobile()"
+        >
+          <i class="nav-item__icon" [class]="item.icon"></i>
+          <span class="nav-item__label">{{ item.label }}</span>
+        </a>
+      }
+    </nav>
+
+    <div class="sidebar__foot">
+      <button type="button" class="nav-item nav-item--button" (click)="logout()">
+        <i class="nav-item__icon ri-logout-box-r-line"></i>
+        <span class="nav-item__label">Sign out</span>
+      </button>
+    </div>
+  </aside>
+
+  <div class="scrim" (click)="closeMobile()"></div>
+
+  <div class="main">
+    <header class="topbar">
+      <button
+        type="button"
+        class="topbar__toggle"
+        (click)="toggleSidebar()"
+        [attr.aria-label]="collapsed() ? 'Expand menu' : 'Collapse menu'"
+      >
+        <i class="ri-menu-line"></i>
+      </button>
+
+      <div class="topbar__spacer"></div>
+
+      @if (user(); as currentUser) {
+        <div class="topbar__user">
+          <span class="avatar">{{ initials() }}</span>
+          <span class="topbar__user-text">
+            <span class="topbar__name">{{ currentUser.fullName }}</span>
+            <span class="topbar__role">{{ currentUser.role }}</span>
+          </span>
+        </div>
+      }
+    </header>
+
+    <main class="content">
+      <router-outlet />
+    </main>
+  </div>
+
+  <app-toast />
+</div>

@@ -1,0 +1,12 @@
+.page-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--sp-5);
+
+  &__title { font-size: var(--fs-2xl); margin: 0; }
+  &__subtitle { margin: var(--sp-1) 0 0; color: var(--c-text-muted); font-size: var(--fs-sm); }
+  &__actions { display: flex; gap: var(--sp-2); }
+}

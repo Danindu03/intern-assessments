@@ -1,0 +1,61 @@
+// Design tokens. Every colour, size and spacing value in the app comes from here.
+// Do not hard-code colours or pixel values in components.
+:root {
+  // Brand
+  --c-primary: #0b5d8f;
+  --c-primary-dark: #084a72;
+  --c-primary-light: #e7f1f8;
+  --c-accent: #12866f;
+
+  // Feedback
+  --c-danger: #b42318;
+  --c-danger-light: #fdeceb;
+  --c-warning: #b54708;
+  --c-success: #027a48;
+  --c-success-light: #e9f7f0;
+
+  // Neutrals
+  --c-text: #1d2939;
+  --c-text-muted: #667085;
+  --c-border: #e4e7ec;
+  --c-bg: #f6f8fa;
+  --c-surface: #ffffff;
+  --c-hover: #f2f6f9;
+
+  // Sidebar
+  --c-sidebar-bg: #0e2a40;
+  --c-sidebar-text: #c9d6e2;
+  --c-sidebar-active: #12405f;
+
+  // Spacing scale
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+
+  // Typography
+  --font-sans: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --fs-xs: 12px;
+  --fs-sm: 13px;
+  --fs-base: 14px;
+  --fs-lg: 16px;
+  --fs-xl: 20px;
+  --fs-2xl: 24px;
+
+  // Shape and depth
+  --radius-sm: 4px;
+  --radius: 8px;
+  --radius-lg: 12px;
+  --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.06);
+  --shadow: 0 4px 12px rgba(16, 24, 40, 0.1);
+  --shadow-lg: 0 12px 32px rgba(16, 24, 40, 0.18);
+
+  // Layout
+  --sidebar-w: 248px;
+  --sidebar-w-collapsed: 68px;
+  --topbar-h: 56px;
+  --transition: 180ms ease;
+}

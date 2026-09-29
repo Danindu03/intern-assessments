@@ -1,0 +1,94 @@
+<div class="table-card card-surface">
+  <div class="table-scroll">
+    <table class="table mb-0">
+      <thead>
+        <tr>
+          @for (col of columns(); track col.header) {
+            <th
+              scope="col"
+              [class.text-end]="col.align === 'end'"
+              [class.hide-sm]="col.hideOnMobile"
+            >{{ col.header }}</th>
+          }
+          <th scope="col" class="actions-col">Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @if (loading()) {
+          @for (row of skeletonRows(); track row) {
+            <tr class="skeleton-row">
+              @for (col of columns(); track col.header) {
+                <td [class.hide-sm]="col.hideOnMobile"><span class="skeleton"></span></td>
+              }
+              <td><span class="skeleton skeleton--sm"></span></td>
+            </tr>
+          }
+        } @else if (error()) {
+          <tr>
+            <td [attr.colspan]="columns().length + 1" class="state-cell">
+              <i class="ri-error-warning-line state-icon state-icon--error"></i>
+              <p class="state-text">{{ error() }}</p>
+              <button type="button" class="btn btn-sm btn-outline-secondary" (click)="retry.emit()">
+                Try again
+              </button>
+            </td>
+          </tr>
+        } @else if (rows().length === 0) {
+          <tr>
+            <td [attr.colspan]="columns().length + 1" class="state-cell">
+              <i class="ri-inbox-line state-icon"></i>
+              <p class="state-text">{{ emptyMessage() }}</p>
+            </td>
+          </tr>
+        } @else {
+          @for (row of rows(); track $index) {
+            <tr>
+              @for (col of columns(); track col.header) {
+                <td
+                  [class.text-end]="col.align === 'end'"
+                  [class.hide-sm]="col.hideOnMobile"
+                  [title]="col.value(row)"
+                >{{ col.value(row) }}</td>
+              }
+              <td class="actions-col">
+                @if (rowActions(); as tpl) {
+                  <ng-container [ngTemplateOutlet]="tpl" [ngTemplateOutletContext]="{ $implicit: row }" />
+                }
+              </td>
+            </tr>
+          }
+        }
+      </tbody>
+    </table>
+  </div>
+
+  @if (!loading() && !error() && totalCount() > 0) {
+    <div class="table-foot">
+      <span class="table-count">
+        Showing {{ firstRow() }}–{{ lastRow() }} of {{ totalCount() }}
+      </span>
+      <div class="pager">
+        <button
+          type="button"
+          class="btn btn-sm btn-outline-secondary"
+          [disabled]="page() === 1"
+          (click)="go(page() - 1)"
+          aria-label="Previous page"
+        >
+          <i class="ri-arrow-left-s-line"></i> Previous
+        </button>
+        <span class="pager__label">Page {{ page() }} of {{ totalPages() }}</span>
+        <button
+          type="button"
+          class="btn btn-sm btn-outline-secondary"
+          [disabled]="page() === totalPages()"
+          (click)="go(page() + 1)"
+          aria-label="Next page"
+        >
+          Next <i class="ri-arrow-right-s-line"></i>
+        </button>
+      </div>
+    </div>
+  }
+</div>

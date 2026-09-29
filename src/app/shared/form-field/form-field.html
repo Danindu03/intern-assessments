@@ -1,0 +1,14 @@
+<div class="field">
+  <label class="field__label">
+    {{ label() }}
+    @if (required()) { <span class="field__req" aria-hidden="true">*</span> }
+  </label>
+
+  <ng-content />
+
+  @if (showError()) {
+    <p class="field__error" role="alert">{{ errorText() }}</p>
+  } @else if (hint()) {
+    <p class="field__hint">{{ hint() }}</p>
+  }
+</div>

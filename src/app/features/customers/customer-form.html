@@ -1,0 +1,85 @@
+<app-page-header
+  [title]="isEdit() ? 'Edit customer' : 'New customer'"
+  subtitle="Fields marked with * are required."
+/>
+
+@if (loading()) {
+  <div class="card-surface p-5 text-center">
+    <span class="spinner-border spinner-border-sm me-2"></span> Loading customer...
+  </div>
+} @else if (loadError(); as message) {
+  <div class="card-surface p-5 text-center">
+    <i class="ri-error-warning-line d-block fs-3 mb-2 text-danger"></i>
+    <p class="mb-3">{{ message }}</p>
+    <button type="button" class="btn btn-outline-secondary" (click)="cancel()">Back to customers</button>
+  </div>
+} @else {
+  <form class="card-surface form-card" [formGroup]="form" (ngSubmit)="save()" novalidate>
+    <div class="row">
+      <div class="col-md-6">
+        <app-form-field
+          label="Customer code"
+          [control]="form.controls.customerCode"
+          [required]="true"
+          hint="Three letters, a dash and four digits, for example CUS-0012."
+        >
+          <input type="text" class="form-control" formControlName="customerCode" placeholder="CUS-0012" />
+        </app-form-field>
+      </div>
+
+      <div class="col-md-6">
+        <app-form-field label="Customer name" [control]="form.controls.customerName" [required]="true">
+          <input type="text" class="form-control" formControlName="customerName" />
+        </app-form-field>
+      </div>
+
+      <div class="col-md-6">
+        <app-form-field label="Customer type" [control]="form.controls.customerType" [required]="true">
+          <app-form-select
+            formControlName="customerType"
+            [options]="customerTypes"
+            placeholder="Select a type"
+            ariaLabel="Customer type"
+          />
+        </app-form-field>
+      </div>
+
+      <div class="col-md-6">
+        <app-form-field label="Country" [control]="form.controls.country" [required]="true">
+          <app-form-select
+            formControlName="country"
+            [options]="countries"
+            placeholder="Select a country"
+            ariaLabel="Country"
+          />
+        </app-form-field>
+      </div>
+
+      <div class="col-md-6">
+        <app-form-field label="Email" [control]="form.controls.email" [required]="true">
+          <input type="email" class="form-control" formControlName="email" />
+        </app-form-field>
+      </div>
+
+      <div class="col-md-6">
+        <app-form-field label="Phone" [control]="form.controls.phone" hint="Optional.">
+          <input type="tel" class="form-control" formControlName="phone" />
+        </app-form-field>
+      </div>
+
+      <div class="col-md-6">
+        <app-form-field label="Credit limit (USD)" [control]="form.controls.creditLimit" hint="Optional.">
+          <input type="number" class="form-control" formControlName="creditLimit" min="0" step="1000" />
+        </app-form-field>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="btn btn-outline-secondary" (click)="cancel()">Cancel</button>
+      <button type="submit" class="btn btn-primary" [disabled]="form.invalid || saving()">
+        @if (saving()) { <span class="spinner-border spinner-border-sm me-2"></span> }
+        {{ isEdit() ? 'Save changes' : 'Create customer' }}
+      </button>
+    </div>
+  </form>
+}

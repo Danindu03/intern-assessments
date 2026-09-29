@@ -1,0 +1,8 @@
+.empty {
+  text-align: center;
+  padding: var(--sp-7) var(--sp-4);
+
+  &__icon { font-size: 40px; color: var(--c-text-muted); }
+  &__title { font-size: var(--fs-lg); margin: var(--sp-3) 0 var(--sp-1); }
+  &__message { color: var(--c-text-muted); margin: 0 0 var(--sp-4); }
+}

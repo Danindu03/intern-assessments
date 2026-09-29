@@ -1,0 +1,11 @@
+<div class="toast-stack" aria-live="polite">
+  @for (toast of toasts(); track toast.id) {
+    <div class="toast-item" [class]="'toast-item--' + toast.kind">
+      <i [class]="icon(toast.kind)"></i>
+      <span class="toast-item__text">{{ toast.message }}</span>
+      <button type="button" class="toast-item__close" (click)="dismiss(toast.id)" aria-label="Dismiss">
+        <i class="ri-close-line"></i>
+      </button>
+    </div>
+  }
+</div>

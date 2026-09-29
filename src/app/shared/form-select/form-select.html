@@ -1,0 +1,12 @@
+<select
+  class="form-select"
+  [disabled]="disabled()"
+  [attr.aria-label]="ariaLabel() || null"
+  (change)="pick($event)"
+  (blur)="touch()"
+>
+  <option value="" [selected]="selected() === ''">{{ placeholder() }}</option>
+  @for (option of options(); track option) {
+    <option [value]="option" [selected]="selected() === option">{{ option }}</option>
+  }
+</select>

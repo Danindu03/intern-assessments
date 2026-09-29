@@ -1,0 +1,30 @@
+.field {
+  margin-bottom: var(--sp-4);
+
+  &__label {
+    display: block;
+    margin-bottom: var(--sp-1);
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    color: var(--c-text);
+  }
+
+  &__req { color: var(--c-danger); margin-left: 2px; }
+
+  &__error {
+    margin: var(--sp-1) 0 0;
+    font-size: var(--fs-xs);
+    color: var(--c-danger);
+  }
+
+  &__hint {
+    margin: var(--sp-1) 0 0;
+    font-size: var(--fs-xs);
+    color: var(--c-text-muted);
+  }
+
+  :global(.form-control.ng-invalid.ng-touched),
+  :global(.form-select.ng-invalid.ng-touched) {
+    border-color: var(--c-danger);
+  }
+}

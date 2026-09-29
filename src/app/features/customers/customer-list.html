@@ -1,0 +1,95 @@
+<app-page-header title="Customers" subtitle="Shippers, consignees, agents and forwarders.">
+  <a class="btn btn-primary" routerLink="/customers/new">
+    <i class="ri-add-line me-1"></i> New customer
+  </a>
+</app-page-header>
+
+<div class="filters card-surface">
+  <div class="filters__search">
+    <i class="ri-search-line"></i>
+    <input
+      type="search"
+      class="form-control"
+      placeholder="Search by name, code or email"
+      aria-label="Search customers"
+      (input)="onSearchInput($any($event.target).value)"
+    />
+  </div>
+
+  <select
+    class="form-select filters__select"
+    aria-label="Filter by type"
+    [ngModel]="typeFilter()"
+    (ngModelChange)="typeFilter.set($event); onFilterChange()"
+  >
+    <option value="">All types</option>
+    @for (type of customerTypes; track type) {
+      <option [value]="type">{{ type }}</option>
+    }
+  </select>
+
+  <select
+    class="form-select filters__select"
+    aria-label="Filter by status"
+    [ngModel]="statusFilter()"
+    (ngModelChange)="statusFilter.set($event); onFilterChange()"
+  >
+    <option value="all">All statuses</option>
+    <option value="active">Active only</option>
+    <option value="inactive">Inactive only</option>
+  </select>
+</div>
+
+<app-data-table
+  [columns]="columns"
+  [rows]="rows()"
+  [loading]="loading()"
+  [error]="error()"
+  emptyMessage="No customers match your search."
+  [page]="page()"
+  [pageSize]="pageSize"
+  [totalCount]="totalCount()"
+  [rowActions]="actions"
+  (pageChange)="onPageChange($event)"
+  (retry)="load()"
+/>
+
+<ng-template #actions let-row>
+  <a
+    class="btn btn-sm btn-outline-secondary me-1"
+    [routerLink]="['/customers', row.customerId, 'edit']"
+    [attr.aria-label]="'Edit ' + row.customerName"
+  >
+    <i class="ri-pencil-line"></i>
+  </a>
+  @if (row.isActive) {
+    <button
+      type="button"
+      class="btn btn-sm btn-outline-secondary"
+      [attr.aria-label]="'Deactivate ' + row.customerName"
+      (click)="askDeactivate(row)"
+    >
+      <i class="ri-forbid-2-line"></i>
+    </button>
+  } @else {
+    <button
+      type="button"
+      class="btn btn-sm btn-outline-secondary"
+      [attr.aria-label]="'Reactivate ' + row.customerName"
+      (click)="reactivate(row)"
+    >
+      <i class="ri-refresh-line"></i>
+    </button>
+  }
+</ng-template>
+
+@if (pendingDeactivate(); as target) {
+  <app-confirm-dialog
+    title="Deactivate customer"
+    [message]="'Deactivate ' + target.customerName + '? They will stop appearing as active, and you can turn them back on later.'"
+    confirmLabel="Deactivate"
+    [busy]="deactivating()"
+    (confirmed)="confirmDeactivate()"
+    (cancelled)="pendingDeactivate.set(null)"
+  />
+}

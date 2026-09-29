@@ -1,0 +1,46 @@
+<div class="login">
+  <div class="login__panel card-surface">
+    <div class="login__brand">
+      <i class="ri-ship-2-fill"></i>
+      <span>Intern Assessments</span>
+    </div>
+
+    <h1 class="login__title">Sign in</h1>
+    <p class="login__subtitle">Use one of the demo accounts below to continue.</p>
+
+    @if (errorMessage(); as message) {
+      <div class="alert alert-danger py-2" role="alert">{{ message }}</div>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <app-form-field label="Username" [control]="form.controls.username" [required]="true">
+        <input
+          type="text"
+          class="form-control"
+          formControlName="username"
+          autocomplete="username"
+          placeholder="agent"
+        />
+      </app-form-field>
+
+      <app-form-field label="Password" [control]="form.controls.password" [required]="true">
+        <input
+          type="password"
+          class="form-control"
+          formControlName="password"
+          autocomplete="current-password"
+          placeholder="demo1234"
+        />
+      </app-form-field>
+
+      <button type="submit" class="btn btn-primary w-100" [disabled]="submitting()">
+        @if (submitting()) { <span class="spinner-border spinner-border-sm me-2"></span> }
+        Sign in
+      </button>
+    </form>
+
+    <p class="login__hint">
+      Demo accounts: <code>agent</code> or <code>admin</code>, password <code>demo1234</code>.
+    </p>
+  </div>
+</div>

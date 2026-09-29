@@ -1,0 +1,18 @@
+<app-page-header
+  [title]="'Welcome back, ' + (user()?.fullName ?? '')"
+  subtitle="A small sample workspace for the intern assessment."
+/>
+
+<div class="stat-grid">
+  @for (stat of stats(); track stat.label) {
+    <a class="stat card-surface" [routerLink]="stat.route">
+      <i class="stat__icon" [class]="stat.icon"></i>
+      <div>
+        <p class="stat__label">{{ stat.label }}</p>
+        <p class="stat__value">{{ stat.value }}</p>
+        <p class="stat__meta">{{ stat.active }} active</p>
+      </div>
+      <i class="ri-arrow-right-line stat__go"></i>
+    </a>
+  }
+</div>
