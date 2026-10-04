@@ -60,6 +60,7 @@ export class VesselList {
     {
       header: 'Status',
       value: (row) => (row.isActive ? 'Active' : 'Inactive'),
+      statusBadge: true,
     },
   ];
 

@@ -54,7 +54,11 @@ export class CustomerList {
       align: 'end',
       hideOnMobile: true,
     },
-    { header: 'Status', value: (row) => (row.isActive ? 'Active' : 'Inactive') },
+    {
+      header: 'Status',
+      value: (row) => (row.isActive ? 'Active' : 'Inactive'),
+      statusBadge: true,
+    },
   ];
 
   constructor() {
@@ -102,6 +106,15 @@ export class CustomerList {
   protected onFilterChange(): void {
     this.page.set(1);
     this.load();
+  }
+
+  protected clearFilters(): void {
+    clearTimeout(this.searchTimer);
+      this.search.set('');
+      this.typeFilter.set('');
+      this.statusFilter.set('all');
+      this.page.set(1);
+      this.load();
   }
 
   protected onPageChange(page: number): void {

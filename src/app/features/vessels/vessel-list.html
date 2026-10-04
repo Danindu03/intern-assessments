@@ -17,6 +17,7 @@
       class="form-control"
       placeholder="Search by vessel name or IMO"
       aria-label="Search vessels"
+      [value]="search()"
       (input)="onSearchInput($any($event.target).value)"
     />
   </div>
@@ -46,6 +47,17 @@
     <option value="active">Active only</option>
     <option value="inactive">Inactive only</option>
   </select>
+
+  @if (search() || typeFilter() || statusFilter() !== 'all') {
+  <button
+    type="button"
+    class="btn btn-outline-secondary"
+    (click)="clearFilters()"
+  >
+    <i class="ri-filter-off-line me-1"></i>
+    Clear filters
+  </button>
+  }
 </div>
 
 <app-data-table

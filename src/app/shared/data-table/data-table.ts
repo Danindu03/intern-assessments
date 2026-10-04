@@ -4,12 +4,18 @@ import { NgTemplateOutlet } from '@angular/common';
 export interface ColumnDef<T> {
   /** Header text. */
   header: string;
+
   /** How to read the cell value from a row. */
   value: (row: T) => string | number | null;
+
   /** Optional extra class, for example 'text-end' for numbers. */
   align?: 'start' | 'end';
+
   /** Hide this column on narrow screens. */
   hideOnMobile?: boolean;
+
+  /** Show the value using the shared status badge style. */
+  statusBadge?: boolean;
 }
 
 /**

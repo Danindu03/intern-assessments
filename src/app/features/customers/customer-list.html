@@ -7,11 +7,13 @@
 <div class="filters card-surface">
   <div class="filters__search">
     <i class="ri-search-line"></i>
+
     <input
       type="search"
       class="form-control"
       placeholder="Search by name, code or email"
       aria-label="Search customers"
+      [value]="search()"
       (input)="onSearchInput($any($event.target).value)"
     />
   </div>
@@ -23,6 +25,7 @@
     (ngModelChange)="typeFilter.set($event); onFilterChange()"
   >
     <option value="">All types</option>
+
     @for (type of customerTypes; track type) {
       <option [value]="type">{{ type }}</option>
     }
@@ -38,6 +41,17 @@
     <option value="active">Active only</option>
     <option value="inactive">Inactive only</option>
   </select>
+
+  @if (search() || typeFilter() || statusFilter() !== 'all') {
+    <button
+      type="button"
+      class="btn btn-outline-secondary"
+      (click)="clearFilters()"
+    >
+      <i class="ri-filter-off-line me-1"></i>
+      Clear filters
+    </button>
+  }
 </div>
 
 <app-data-table
@@ -62,6 +76,7 @@
   >
     <i class="ri-pencil-line"></i>
   </a>
+
   @if (row.isActive) {
     <button
       type="button"
@@ -86,7 +101,11 @@
 @if (pendingDeactivate(); as target) {
   <app-confirm-dialog
     title="Deactivate customer"
-    [message]="'Deactivate ' + target.customerName + '? They will stop appearing as active, and you can turn them back on later.'"
+    [message]="
+      'Deactivate ' +
+      target.customerName +
+      '? They will stop appearing as active, and you can turn them back on later.'
+    "
     confirmLabel="Deactivate"
     [busy]="deactivating()"
     (confirmed)="confirmDeactivate()"

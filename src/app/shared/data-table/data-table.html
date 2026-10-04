@@ -45,11 +45,25 @@
           @for (row of rows(); track $index) {
             <tr>
               @for (col of columns(); track col.header) {
+               
                 <td
                   [class.text-end]="col.align === 'end'"
                   [class.hide-sm]="col.hideOnMobile"
                   [title]="col.value(row)"
-                >{{ col.value(row) }}</td>
+                >
+              @if (col.statusBadge) {
+                <span
+                  class="badge-status"
+                  [class.is-active]="col.value(row) === 'Active'"
+                  [class.is-inactive]="col.value(row) === 'Inactive'"
+                >
+              {{ col.value(row) }}
+                </span>
+              } @else {
+                {{ col.value(row) }}
+              }
+              </td>
+                
               }
               <td class="actions-col">
                 @if (rowActions(); as tpl) {
