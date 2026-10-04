@@ -36,6 +36,16 @@ export const routes: Routes = [
         path: 'vessels',
         loadComponent: () => import('./features/vessels/vessel-list').then((m) => m.VesselList),
       },
+      {
+        path: 'vessels/new',
+        loadComponent: () =>
+          import('./features/vessels/vessel-form').then((m) => m.VesselForm),
+      },
+      {
+        path: 'vessels/:id/edit',
+        loadComponent: () =>
+          import('./features/vessels/vessel-form').then((m) => m.VesselForm),
+      },
     ],
   },
   { path: '**', redirectTo: '' },

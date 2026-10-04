@@ -1,0 +1,154 @@
+<app-page-header
+  [title]="isEdit() ? 'Edit vessel' : 'New vessel'"
+  subtitle="Fields marked with * are required."
+/>
+
+@if (loading()) {
+  <div class="card-surface p-5 text-center">
+    <span class="spinner-border spinner-border-sm me-2"></span>
+    Loading vessel...
+  </div>
+} @else if (loadError(); as message) {
+  <div class="card-surface p-5 text-center">
+    <i class="ri-error-warning-line d-block fs-3 mb-2 text-danger"></i>
+
+    <p class="mb-3">{{ message }}</p>
+
+    <button
+      type="button"
+      class="btn btn-outline-secondary"
+      (click)="cancel()"
+    >
+      Back to vessels
+    </button>
+  </div>
+} @else {
+  <form
+    class="card-surface form-card"
+    [formGroup]="form"
+    (ngSubmit)="save()"
+    novalidate
+  >
+    <div class="row">
+
+      <div class="col-md-6">
+        <app-form-field
+          label="Vessel name"
+          [control]="form.controls.vesselName"
+          [required]="true"
+        >
+          <input
+            type="text"
+            class="form-control"
+            formControlName="vesselName"
+            placeholder="MV Ocean Star"
+          />
+        </app-form-field>
+      </div>
+
+      <div class="col-md-6">
+        <app-form-field
+          label="IMO number"
+          [control]="form.controls.imoNumber"
+          [required]="true"
+          hint="Enter the 7-digit IMO number."
+        >
+          <input
+            type="text"
+            class="form-control"
+            formControlName="imoNumber"
+            inputmode="numeric"
+            maxlength="7"
+            placeholder="9876543"
+          />
+        </app-form-field>
+      </div>
+
+      <div class="col-md-6">
+        <app-form-field
+          label="Vessel type"
+          [control]="form.controls.vesselType"
+          [required]="true"
+        >
+          <app-form-select
+            formControlName="vesselType"
+            [options]="vesselTypes"
+            placeholder="Select a type"
+            ariaLabel="Vessel type"
+          />
+        </app-form-field>
+      </div>
+
+      <div class="col-md-6">
+        <app-form-field
+          label="Flag country"
+          [control]="form.controls.flagCountry"
+          [required]="true"
+        >
+          <app-form-select
+            formControlName="flagCountry"
+            [options]="countries"
+            placeholder="Select a country"
+            ariaLabel="Flag country"
+          />
+        </app-form-field>
+      </div>
+
+      <div class="col-md-6">
+        <app-form-field
+          label="Gross tonnage"
+          [control]="form.controls.grossTonnage"
+          [required]="true"
+        >
+          <input
+            type="number"
+            class="form-control"
+            formControlName="grossTonnage"
+            min="1"
+            step="0.01"
+          />
+        </app-form-field>
+      </div>
+
+      <div class="col-md-6">
+        <app-form-field
+          label="Year built"
+          [control]="form.controls.yearBuilt"
+          [required]="true"
+          [hint]="'Between 1900 and ' + currentYear + '.'"
+        >
+          <input
+            type="number"
+            class="form-control"
+            formControlName="yearBuilt"
+            min="1900"
+            [max]="currentYear"
+          />
+        </app-form-field>
+      </div>
+
+    </div>
+
+    <div class="form-actions">
+      <button
+        type="button"
+        class="btn btn-outline-secondary"
+        (click)="cancel()"
+      >
+        Cancel
+      </button>
+
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="form.invalid || saving()"
+      >
+        @if (saving()) {
+          <span class="spinner-border spinner-border-sm me-2"></span>
+        }
+
+        {{ isEdit() ? 'Save changes' : 'Create vessel' }}
+      </button>
+    </div>
+  </form>
+}
