@@ -73,6 +73,7 @@
     class="btn btn-sm btn-outline-secondary me-1"
     [routerLink]="['/customers', row.customerId, 'edit']"
     [attr.aria-label]="'Edit ' + row.customerName"
+    title="Edit customer"
   >
     <i class="ri-pencil-line"></i>
   </a>
@@ -82,19 +83,21 @@
       type="button"
       class="btn btn-sm btn-outline-secondary"
       [attr.aria-label]="'Deactivate ' + row.customerName"
+      title="Deactivate customer"
       (click)="askDeactivate(row)"
-    >
-      <i class="ri-forbid-2-line"></i>
+  >
+    <i class="ri-forbid-2-line"></i>
     </button>
   } @else {
     <button
       type="button"
       class="btn btn-sm btn-outline-secondary"
       [attr.aria-label]="'Reactivate ' + row.customerName"
+      title="Reactivate customer"
       (click)="reactivate(row)"
-    >
-      <i class="ri-refresh-line"></i>
-    </button>
+  >
+    <i class="ri-refresh-line"></i>
+</button>
   }
 </ng-template>
 

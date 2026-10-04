@@ -79,6 +79,7 @@
     class="btn btn-sm btn-outline-secondary me-1"
     [routerLink]="['/vessels', row.vesselId, 'edit']"
     [attr.aria-label]="'Edit ' + row.vesselName"
+    title="Edit vessel"
   >
     <i class="ri-pencil-line"></i>
   </a>
@@ -88,6 +89,7 @@
       type="button"
       class="btn btn-sm btn-outline-secondary"
       [attr.aria-label]="'Deactivate ' + row.vesselName"
+      title="Deactivate vessel"
       (click)="askDeactivate(row)"
     >
       <i class="ri-forbid-2-line"></i>
@@ -97,6 +99,7 @@
       type="button"
       class="btn btn-sm btn-outline-secondary"
       [attr.aria-label]="'Reactivate ' + row.vesselName"
+      title="Reactivate vessel"
       (click)="reactivate(row)"
     >
       <i class="ri-refresh-line"></i>
